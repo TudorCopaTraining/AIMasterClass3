@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Modern AI Ecosystem - Interactive Task (Part 1)</title>
+    <link rel="stylesheet" href="ModernAI.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+    <header class="app-header">
+        <div class="header-content">
+            <span class="badge">AI Level 4 Apprenticeship • Module 3</span>
+            <h1>The Modern AI Ecosystem: Interactive Mapping</h1>
+            <p>Part 1: Test your ability to classify enterprise scenarios into the correct technological pillars.</p>
+        </div>
+    </header>
+
+    <main class="main-container">
+        <section class="instructions-card">
+            <h2><i class="fa-solid fa-circle-question"></i> Instructions</h2>
+            <p>Review each enterprise scenario card below. Drag or select the correct AI Ecosystem pillar that best describes the technology in action. Once all items are categorized, check your answers and unlock Part 2!</p>
+            <div class="score-display">
+                Score: <span id="current-score">0</span> / <span id="total-score">6</span>
+            </div>
+        </section>
+
+        <div class="workspace-grid">
+            <!-- Unassigned Scenarios Bank -->
+            <div class="scenario-bank-container">
+                <h3><i class="fa-solid fa-layer-group"></i> Enterprise Scenarios</h3>
+                <div id="scenario-bank" class="scenario-bank" ondragover="allowDrop(event)" ondrop="dropToBank(event)">
+                    <!-- Scenario Cards -->
+                    <div class="scenario-card" draggable="true" id="scen-1" ondragstart="drag(event)">
+                        <span class="scen-id">#01</span>
+                        <p>An automated script copies monthly billing figures from legacy ERP systems into Excel sheets without deviation.</p>
+                        <span class="tag">Rule-Based</span>
+                    </div>
+                    <div class="scenario-card" draggable="true" id="scen-2" ondragstart="drag(event)">
+                        <span class="scen-id">#02</span>
+                        <p>Foundation models synthesizing natural language emails based on customer CRM interaction history.</p>
+                        <span class="tag">Content Synthesis</span>
+                    </div>
+                    <div class="scenario-card" draggable="true" id="scen-3" ondragstart="drag(event)">
+                        <span class="scen-id">#03</span>
+                        <p>Supervised regression models predicting customer churn risk based on historical transaction frequency.</p>
+                        <span class="tag">Statistical Patterns</span>
+                    </div>
+                    <div class="scenario-card" draggable="true" id="scen-4" ondragstart="drag(event)">
+                        <span class="scen-id">#04</span>
+                        <p>Clinical decision support tools surfacing relevant medical trial notes for physician review before diagnosis.</p>
+                        <span class="tag">Human-in-the-Loop</span>
+                    </div>
+                    <div class="scenario-card" draggable="true" id="scen-5" ondragstart="drag(event)">
+                        <span class="scen-id">#05</span>
+                        <p>Combining computer vision, NLP extraction models, and validation rules to ingest unstructured invoices.</p>
+                        <span class="tag">Convergence Stack</span>
+                    </div>
+                    <div class="scenario-card" draggable="true" id="scen-6" ondragstart="drag(event)">
+                        <span class="scen-id">#06</span>
+                        <p>Expert systems designed to simulate general human reasoning and problem-solving across complex environments.</p>
+                        <span class="tag">Reasoning Simulation</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ecosystem Pillars Drop Zones -->
+            <div class="pillars-container">
+                <h3><i class="fa-solid fa-bullseye"></i> Ecosystem Pillars</h3>
+                <div class="pillars-grid">
+                    <!-- Pillar 1: AI -->
+                    <div class="pillar-drop-zone" data-pillar="ai" ondragover="allowDrop(event)" ondrop="dropToPillar(event, 'ai')">
+                        <div class="pillar-header"><i class="fa-solid fa-brain"></i> Artificial Intelligence</div>
+                        <div class="drop-target-area" id="drop-ai">Drop scenario here</div>
+                    </div>
+                    <!-- Pillar 2: ML -->
+                    <div class="pillar-drop-zone" data-pillar="ml" ondragover="allowDrop(event)" ondrop="dropToPillar(event, 'ml')">
+                        <div class="pillar-header"><i class="fa-solid fa-chart-line"></i> Machine Learning</div>
+                        <div class="drop-target-area" id="drop-ml">Drop scenario here</div>
+                    </div>
+                    <!-- Pillar 3: GenAI -->
+                    <div class="pillar-drop-zone" data-pillar="genai" ondragover="allowDrop(event)" ondrop="dropToPillar(event, 'genai')">
+                        <div class="pillar-header"><i class="fa-solid fa-wand-magic-sparkles"></i> Generative AI</div>
+                        <div class="drop-target-area" id="drop-genai">Drop scenario here</div>
+                    </div>
+                    <!-- Pillar 4: Automation -->
+                    <div class="pillar-drop-zone" data-pillar="automation" ondragover="allowDrop(event)" ondrop="dropToPillar(event, 'automation')">
+                        <div class="pillar-header"><i class="fa-solid fa-gears"></i> Automation</div>
+                        <div class="drop-target-area" id="drop-automation">Drop scenario here</div>
+                    </div>
+                    <!-- Pillar 5: Augmented Intelligence -->
+                    <div class="pillar-drop-zone" data-pillar="augmented" ondragover="allowDrop(event)" ondrop="dropToPillar(event, 'augmented')">
+                        <div class="pillar-header"><i class="fa-solid fa-user-gear"></i> Augmented Intelligence</div>
+                        <div class="drop-target-area" id="drop-augmented">Drop scenario here</div>
+                    </div>
+                    <!-- Pillar 6: IPA -->
+                    <div class="pillar-drop-zone" data-pillar="ipa" ondragover="allowDrop(event)" ondrop="dropToPillar(event, 'ipa')">
+                        <div class="pillar-header"><i class="fa-solid fa-network-wired"></i> Intelligent Process Auto.</div>
+                        <div class="drop-target-area" id="drop-ipa">Drop scenario here</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="action-bar">
+            <button class="btn btn-secondary" onclick="resetTask()"><i class="fa-solid fa-rotate-right"></i> Reset Task</button>
+            <button class="btn btn-primary" onclick="verifyAnswers()"><i class="fa-solid fa-check"></i> Verify Answers</button>
+        </div>
+
+        <div id="feedback-message" class="feedback-box hidden"></div>
+
+        <div class="next-task-container hidden" id="next-task-container">
+            <div class="success-banner">
+                <i class="fa-solid fa-award"></i>
+                <div>
+                    <h3>Fantastic Work! Part 1 Completed Successfully.</h3>
+                    <p>You have successfully mapped all enterprise scenarios to their correct ecosystem pillars.</p>
+                </div>
+            </div>
+            <!-- Placeholder ID & Text for Part 2 Link -->
+            <a href="ModernAI_Part2.html" id="link-to-next-task" class="btn btn-next-task">
+                Proceed to Part 2: Workflow Orchestration &nbsp;<i class="fa-solid fa-arrow-right"></i>
+            </a>
+        </div>
+    </main>
+
+    <script>
+        // Correct mappings
+        const correctMapping = {
+            "scen-1": "automation",
+            "scen-2": "genai",
+            "scen-3": "ml",
+            "scen-4": "augmented",
+            "scen-5": "ipa",
+            "scen-6": "ai"
+        };
+
+        function allowDrop(ev) {
+            ev.preventDefault();
+        }
+
+        function drag(ev) {
+            ev.dataTransfer.setData("text", ev.target.id);
+        }
+
+        function dropToPillar(ev, pillarId) {
+            ev.preventDefault();
+            const data = ev.dataTransfer.getData("text");
+            const element = document.getElementById(data);
+            const targetArea = document.getElementById('drop-' + pillarId);
+            
+            // If target area has default text or placeholder, clear or append
+            if (targetArea.querySelector('.drop-target-area') || targetArea.classList.contains('drop-target-area')) {
+                // Find target container
+                const zone = ev.currentTarget.querySelector('.drop-target-area') || ev.currentTarget;
+                if (zone.innerText.includes('Drop scenario here')) {
+                    zone.innerHTML = '';
+                }
+                zone.appendChild(element);
+            }
+            updateScoreCount();
+        }
+
+        function dropToBank(ev) {
+            ev.preventDefault();
+            const data = ev.dataTransfer.getData("text");
+            const element = document.getElementById(data);
+            const bank = document.getElementById('scenario-bank');
+            bank.appendChild(element);
+            updateScoreCount();
+        }
+
+        function updateScoreCount() {
+            let correctCount = 0;
+            for (let [scenId, pillarKey] of Object.entries(correctMapping)) {
+                const el = document.getElementById(scenId);
+                const parentZone = el.parentElement;
+                if (parentZone && parentZone.id === 'drop-' + pillarKey) {
+                    correctCount++;
+                }
+            }
+            document.getElementById('current-score').innerText = correctCount;
+        }
+
+        function verifyAnswers() {
+            let correctCount = 0;
+            let allPlaced = true;
+            
+            for (let [scenId, pillarKey] of Object.entries(correctMapping)) {
+                const el = document.getElementById(scenId);
+                const parentZone = el.parentElement;
+                if (!parentZone || !parentZone.id.startsWith('drop-')) {
+                    allPlaced = false;
+                } else if (parentZone.id === 'drop-' + pillarKey) {
+                    correctCount++;
+                    el.style.borderColor = '#22c55e';
+                    el.style.background = '#f0fdf4';
+                } else {
+                    el.style.borderColor = '#ef4444';
+                    el.style.background = '#fef2f2';
+                }
+            }
+
+            document.getElementById('current-score').innerText = correctCount;
+            const feedback = document.getElementById('feedback-message');
+            feedback.classList.remove('hidden');
+
+            if (correctCount === 6) {
+                feedback.className = 'feedback-box success';
+                feedback.innerHTML = '<i class="fa-solid fa-circle-check"></i> All 6 ecosystem scenarios correctly mapped! Amazing job.';
+                document.getElementById('next-task-container').classList.remove('hidden');
+            } else {
+                feedback.className = 'feedback-box warning';
+                feedback.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i> You got ${correctCount} out of 6 correct. Review items marked in red and try again!`;
+            }
