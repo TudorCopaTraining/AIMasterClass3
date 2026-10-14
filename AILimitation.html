@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Capability vs Limitation Analysis</title>
-    <link rel="stylesheet" href="AILimitation.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -13,11 +13,11 @@
 
     <header>
         <h1>AI Tool Analysis: Capability vs Limitation</h1>
-        <p>Analyse your designated AI tool. Categorise the operational frames below by dragging or clicking them into the correct buckets.</p>
+        <p>Analyse your designated AI tool. Sort the operational attributes below into the correct frames based on your group's assessment, then verify your layout.</p>
         
         <!-- Score Counter Widget -->
         <div class="score-container">
-            <span class="score-label">Analysis Accuracy:</span>
+            <span class="score-label">Verified Score:</span>
             <span id="scoreCounter" class="score-value">0 / 6</span>
         </div>
     </header>
@@ -25,7 +25,7 @@
     <main class="container">
         <!-- Interactive Workspace -->
         <section class="cards-pool" id="cardsPool">
-            <h3>Operational Attributes</h3>
+            <h3>Operational Attributes Pool</h3>
             <div class="pool-wrapper" id="pool">
                 <div class="card" draggable="true" data-correct="well" id="c1">Processing High-Volume Data Arrays</div>
                 <div class="card" draggable="true" data-correct="poorly" id="c2">Identifying Nuanced Context & Irony</div>
@@ -58,25 +58,30 @@
 
         <!-- Control and Navigation Panel -->
         <footer class="action-panel">
-            <button id="showAnswersBtn" class="btn btn-secondary">Reveal & Auto-Place Answers</button>
+            <div class="control-group">
+                <button id="checkAnswersBtn" class="btn btn-secondary">Check Answers</button>
+                <button id="resetBtn" class="btn btn-danger">Reset Challenge</button>
+            </div>
             <button id="nextTaskBtn" class="btn btn-primary" disabled>Complete Current Analysis</button>
         </footer>
     </main>
 
     <script>
         const cards = document.querySelectorAll('.card');
+        const pool = document.getElementById('pool');
         const targets = document.querySelectorAll('.zone-target');
         const nextBtn = document.getElementById('nextTaskBtn');
-        const showAnswersBtn = document.getElementById('showAnswersBtn');
+        const checkAnswersBtn = document.getElementById('checkAnswersBtn');
+        const resetBtn = document.getElementById('resetBtn');
         const scoreCounter = document.getElementById('scoreCounter');
         const totalCards = cards.length;
 
-        // Confetti Canvas System variables
+        // Confetti Engine Setup
         const canvas = document.getElementById('confettiCanvas');
         const ctx = canvas.getContext('2d');
         let confetti = [];
         let animationFrameId = null;
-        let hasCelebrated = false; // Prevents re-triggering multiple times
+        let hasCelebrated = false;
 
         function resizeCanvas() {
             canvas.width = window.innerWidth;
@@ -85,18 +90,21 @@
         window.addEventListener('resize', resizeCanvas);
         resizeCanvas();
 
-        // Setup Drag and Drop Mechanics
+        // Drag and Drop Mechanics
         cards.forEach(card => {
             card.addEventListener('dragstart', (e) => {
                 e.dataTransfer.setData('text/plain', card.id);
             });
             
-            // Accessible Click Fallback
+            // Apprentice Choice Cycle Interaction (Click loops through columns manually)
             card.addEventListener('click', () => {
-                const targetZoneType = card.getAttribute('data-correct');
-                const matchingZone = document.querySelector(`#zone-${targetZoneType} .zone-target`);
-                matchingZone.appendChild(card);
-                evaluatePlacement();
+                clearCardValidation(card);
+                const activeZones = Array.from(document.querySelectorAll('.zone-target'));
+                const currentParentIndex = activeZones.indexOf(card.parentElement);
+                
+                // Move card to next zone, or wrap back to first zone if clicked out of pool
+                const nextTargetIndex = (currentParentIndex + 1) % activeZones.length;
+                activeZones[nextTargetIndex].appendChild(card);
             });
         });
 
@@ -106,18 +114,27 @@
                 e.preventDefault();
                 const cardId = e.dataTransfer.getData('text/plain');
                 const card = document.getElementById(cardId);
+                clearCardValidation(card);
                 target.appendChild(card);
-                evaluatePlacement();
             });
         });
 
-        // Evaluates user performance, updates UI colours, handles metrics and unlocking
-        function evaluatePlacement() {
+        function clearCardValidation(card) {
+            card.classList.remove('correct-match', 'incorrect-match');
+            nextBtn.setAttribute('disabled', 'true');
+            nextBtn.classList.remove('active');
+            nextBtn.innerText = "Complete Current Analysis";
+        }
+
+        // Grade current board configurations explicitly on button request
+        checkAnswersBtn.addEventListener('click', () => {
             let correctCount = 0;
+            let totalPlaced = 0;
 
             cards.forEach(card => {
                 const currentZone = card.closest('.zone');
                 if (currentZone) {
+                    totalPlaced++;
                     const currentZoneType = currentZone.getAttribute('data-zone');
                     const correctZoneType = card.getAttribute('data-correct');
                     
@@ -130,14 +147,12 @@
                         card.classList.add('incorrect-match');
                     }
                 } else {
-                    card.classList.remove('correct-match', 'incorrect-match');
+                    card.classList.add('incorrect-match'); // Unplaced items count as wrong
                 }
             });
 
-            // Update live metrics dashboard
             scoreCounter.innerText = `${correctCount} / ${totalCards}`;
 
-            // Unlock next stage criteria condition
             if (correctCount === totalCards) {
                 nextBtn.removeAttribute('disabled');
                 nextBtn.classList.add('active');
@@ -148,35 +163,32 @@
                     hasCelebrated = true;
                 }
             } else {
-                nextBtn.setAttribute('disabled', 'true');
-                nextBtn.classList.remove('active');
-                nextBtn.innerText = "Complete Current Analysis";
-                hasCelebrated = false; // Reset to allow party if they break out and fix it again
+                alert(`Analysis complete! You sorted ${correctCount} out of ${totalCards} attributes accurately. Adjust items highlighted in red and recheck.`);
             }
-        }
-
-        // Action: Reveal / Auto-Solver framework
-        showAnswersBtn.addEventListener('click', () => {
-            cards.forEach(card => {
-                const correctZoneType = card.getAttribute('data-correct');
-                const destinationTarget = document.querySelector(`#zone-${correctZoneType} .zone-target`);
-                destinationTarget.appendChild(card);
-            });
-            evaluatePlacement();
         });
 
-        // Navigation forward trigger routing
+        // Reset system architecture to default zero state
+        resetBtn.addEventListener('click', () => {
+            cards.forEach(card => {
+                card.classList.remove('correct-match', 'incorrect-match');
+                pool.appendChild(card);
+            });
+            scoreCounter.innerText = `0 / ${totalCards}`;
+            nextBtn.setAttribute('disabled', 'true');
+            nextBtn.classList.remove('active');
+            nextBtn.innerText = "Complete Current Analysis";
+            hasCelebrated = false;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        });
+
         nextBtn.addEventListener('click', () => {
             alert('Progress validated! Redirecting to the next task module...');
             // window.location.href = "task2.html";
         });
 
-        // Custom Light Confetti Particle System
         function triggerConfetti() {
             confetti = [];
             const colors = ['#007aff', '#00e676', '#ff5252', '#ffeb3b', '#e91e63'];
-            
-            // Generate distinct streams from left/right sides
             for (let i = 0; i < 150; i++) {
                 confetti.push({
                     x: Math.random() < 0.5 ? 50 : canvas.width - 50,
@@ -190,7 +202,6 @@
                     rotationSpeed: (Math.random() - 0.5) * 10
                 });
             }
-
             if (animationFrameId) cancelAnimationFrame(animationFrameId);
             animateConfetti();
         }
@@ -203,7 +214,7 @@
                 p.x += p.velocityX;
                 p.y += p.velocityY;
                 p.velocityY += p.gravity;
-                p.velocityX *= 0.98; // Friction air resistance
+                p.velocityX *= 0.98;
                 p.rotation += p.rotationSpeed;
 
                 if (p.y < canvas.height) {
@@ -219,10 +230,3 @@
 
             if (activeParticles) {
                 animationFrameId = requestAnimationFrame(animateConfetti);
-            } else {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-            }
-        }
-    </script>
-</body>
-</html>
