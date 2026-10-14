@@ -13,9 +13,8 @@
 
     <header>
         <h1>AI Tool Analysis: Capability vs Limitation</h1>
-        <p>Analyse your designated AI tool. Sort the operational attributes below into the correct frames based on your group's assessment, then verify your layout.</p>
+        <p>Analyse Artificial Intelligence capabilities. Sort the operational attributes below into the correct frames based on your assessment, then verify your layout.</p>
         
-        <!-- Score Counter Widget -->
         <div class="score-container">
             <span class="score-label">Verified Score:</span>
             <span id="scoreCounter" class="score-value">0 / 6</span>
@@ -23,7 +22,7 @@
     </header>
 
     <main class="container">
-        <!-- Interactive Workspace -->
+        <!-- Pool Section -->
         <section class="cards-pool" id="cardsPool">
             <h3>Operational Attributes Pool</h3>
             <div class="pool-wrapper" id="pool">
@@ -36,27 +35,25 @@
             </div>
         </section>
 
+        <!-- Target Columns -->
         <section class="drop-zones">
-            <!-- Zone 1: What it does well -->
             <div class="zone" id="zone-well" data-zone="well">
                 <h3>What It Does Well</h3>
                 <div class="zone-target"></div>
             </div>
 
-            <!-- Zone 2: What it does poorly -->
             <div class="zone" id="zone-poorly" data-zone="poorly">
                 <h3>What It Does Poorly</h3>
                 <div class="zone-target"></div>
             </div>
 
-            <!-- Zone 3: Human Intervention -->
             <div class="zone" id="zone-human" data-zone="human">
                 <h3>Human Intervention Required</h3>
                 <div class="zone-target"></div>
             </div>
         </section>
 
-        <!-- Control and Navigation Panel -->
+        <!-- Actions Panel -->
         <footer class="action-panel">
             <div class="control-group">
                 <button id="checkAnswersBtn" class="btn btn-secondary">Check Answers</button>
@@ -67,166 +64,179 @@
     </main>
 
     <script>
-        const cards = document.querySelectorAll('.card');
-        const pool = document.getElementById('pool');
-        const targets = document.querySelectorAll('.zone-target');
-        const nextBtn = document.getElementById('nextTaskBtn');
-        const checkAnswersBtn = document.getElementById('checkAnswersBtn');
-        const resetBtn = document.getElementById('resetBtn');
-        const scoreCounter = document.getElementById('scoreCounter');
-        const totalCards = cards.length;
+        document.addEventListener("DOMContentLoaded", () => {
+            const cards = document.querySelectorAll('.card');
+            const pool = document.getElementById('pool');
+            const targets = document.querySelectorAll('.zone-target');
+            const nextBtn = document.getElementById('nextTaskBtn');
+            const checkAnswersBtn = document.getElementById('checkAnswersBtn');
+            const resetBtn = document.getElementById('resetBtn');
+            const scoreCounter = document.getElementById('scoreCounter');
+            const totalCards = cards.length;
 
-        // Confetti Engine Setup
-        const canvas = document.getElementById('confettiCanvas');
-        const ctx = canvas.getContext('2d');
-        let confetti = [];
-        let animationFrameId = null;
-        let hasCelebrated = false;
+            const canvas = document.getElementById('confettiCanvas');
+            let ctx = canvas ? canvas.getContext('2d') : null;
+            let confetti = [];
+            let animationFrameId = null;
+            let hasCelebrated = false;
 
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-        window.addEventListener('resize', resizeCanvas);
-        resizeCanvas();
-
-        // Drag and Drop Mechanics
-        cards.forEach(card => {
-            card.addEventListener('dragstart', (e) => {
-                e.dataTransfer.setData('text/plain', card.id);
-            });
-            
-            // Apprentice Choice Cycle Interaction (Click loops through columns manually)
-            card.addEventListener('click', () => {
-                clearCardValidation(card);
-                const activeZones = Array.from(document.querySelectorAll('.zone-target'));
-                const currentParentIndex = activeZones.indexOf(card.parentElement);
-                
-                // Move card to next zone, or wrap back to first zone if clicked out of pool
-                const nextTargetIndex = (currentParentIndex + 1) % activeZones.length;
-                activeZones[nextTargetIndex].appendChild(card);
-            });
-        });
-
-        targets.forEach(target => {
-            target.addEventListener('dragover', (e) => e.preventDefault());
-            target.addEventListener('drop', (e) => {
-                e.preventDefault();
-                const cardId = e.dataTransfer.getData('text/plain');
-                const card = document.getElementById(cardId);
-                clearCardValidation(card);
-                target.appendChild(card);
-            });
-        });
-
-        function clearCardValidation(card) {
-            card.classList.remove('correct-match', 'incorrect-match');
-            nextBtn.setAttribute('disabled', 'true');
-            nextBtn.classList.remove('active');
-            nextBtn.innerText = "Complete Current Analysis";
-        }
-
-        // Grade current board configurations explicitly on button request
-        checkAnswersBtn.addEventListener('click', () => {
-            let correctCount = 0;
-            let totalPlaced = 0;
-
-            cards.forEach(card => {
-                const currentZone = card.closest('.zone');
-                if (currentZone) {
-                    totalPlaced++;
-                    const currentZoneType = currentZone.getAttribute('data-zone');
-                    const correctZoneType = card.getAttribute('data-correct');
-                    
-                    if (currentZoneType === correctZoneType) {
-                        card.classList.remove('incorrect-match');
-                        card.classList.add('correct-match');
-                        correctCount++;
-                    } else {
-                        card.classList.remove('correct-match');
-                        card.classList.add('incorrect-match');
-                    }
-                } else {
-                    card.classList.add('incorrect-match'); // Unplaced items count as wrong
+            function resizeCanvas() {
+                if (canvas) {
+                    canvas.width = window.innerWidth;
+                    canvas.height = window.innerHeight;
                 }
-            });
-
-            scoreCounter.innerText = `${correctCount} / ${totalCards}`;
-
-            if (correctCount === totalCards) {
-                nextBtn.removeAttribute('disabled');
-                nextBtn.classList.add('active');
-                nextBtn.innerText = "Proceed to Next Task →";
-                
-                if (!hasCelebrated) {
-                    triggerConfetti();
-                    hasCelebrated = true;
-                }
-            } else {
-                alert(`Analysis complete! You sorted ${correctCount} out of ${totalCards} attributes accurately. Adjust items highlighted in red and recheck.`);
             }
-        });
+            window.addEventListener('resize', resizeCanvas);
+            resizeCanvas();
 
-        // Reset system architecture to default zero state
-        resetBtn.addEventListener('click', () => {
+            // Card Interaction Handling
             cards.forEach(card => {
-                card.classList.remove('correct-match', 'incorrect-match');
-                pool.appendChild(card);
+                card.addEventListener('dragstart', (e) => {
+                    e.dataTransfer.setData('text/plain', card.id);
+                });
+                
+                // Sequential fallback interaction
+                card.addEventListener('click', () => {
+                    card.classList.remove('correct-match', 'incorrect-match');
+                    const targetColumns = Array.from(document.querySelectorAll('.zone-target'));
+                    let activeIndex = targetColumns.indexOf(card.parentElement);
+                    
+                    let nextIndex = activeIndex + 1;
+                    if (nextIndex >= targetColumns.length || activeIndex === -1) {
+                        nextIndex = 0;
+                    }
+                    targetColumns[nextIndex].appendChild(card);
+                });
             });
-            scoreCounter.innerText = `0 / ${totalCards}`;
-            nextBtn.setAttribute('disabled', 'true');
-            nextBtn.classList.remove('active');
-            nextBtn.innerText = "Complete Current Analysis";
-            hasCelebrated = false;
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-        });
 
-        nextBtn.addEventListener('click', () => {
-            alert('Progress validated! Redirecting to the next task module...');
-            // window.location.href = "task2.html";
-        });
+            targets.forEach(target => {
+                target.addEventListener('dragover', (e) => e.preventDefault());
+                target.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    const cardId = e.dataTransfer.getData('text/plain');
+                    const card = document.getElementById(cardId);
+                    if (card) {
+                        card.classList.remove('correct-match', 'incorrect-match');
+                        target.appendChild(card);
+                    }
+                });
+            });
 
-        function triggerConfetti() {
-            confetti = [];
-            const colors = ['#007aff', '#00e676', '#ff5252', '#ffeb3b', '#e91e63'];
-            for (let i = 0; i < 150; i++) {
-                confetti.push({
-                    x: Math.random() < 0.5 ? 50 : canvas.width - 50,
-                    y: canvas.height - 50,
-                    size: Math.random() * 8 + 4,
-                    color: colors[Math.floor(Math.random() * colors.length)],
-                    velocityX: (Math.random() - 0.5) * 15 + (Math.random() < 0.5 ? 12 : -12),
-                    velocityY: -Math.random() * 20 - 10,
-                    gravity: 0.4,
-                    rotation: Math.random() * 360,
-                    rotationSpeed: (Math.random() - 0.5) * 10
+            // Evaluation Engine
+            if (checkAnswersBtn) {
+                checkAnswersBtn.addEventListener('click', () => {
+                    let correctCount = 0;
+
+                    cards.forEach(card => {
+                        const currentZone = card.closest('.zone');
+                        if (currentZone) {
+                            const currentZoneType = currentZone.getAttribute('data-zone');
+                            const correctZoneType = card.getAttribute('data-correct');
+                            
+                            if (currentZoneType === correctZoneType) {
+                                card.classList.remove('incorrect-match');
+                                card.classList.add('correct-match');
+                                correctCount++;
+                            } else {
+                                card.classList.remove('correct-match');
+                                card.classList.add('incorrect-match');
+                            }
+                        } else {
+                            card.classList.add('incorrect-match');
+                        }
+                    });
+
+                    if (scoreCounter) scoreCounter.innerText = `${correctCount} / ${totalCards}`;
+
+                    if (correctCount === totalCards) {
+                        if (nextBtn) {
+                            nextBtn.removeAttribute('disabled');
+                            nextBtn.classList.add('active');
+                            nextBtn.innerText = "Proceed to Next Task →";
+                        }
+                        if (!hasCelebrated) {
+                            triggerConfetti();
+                            hasCelebrated = true;
+                        }
+                    } else {
+                        alert(`Analysis complete! You sorted ${correctCount} out of ${totalCards} attributes correctly. Adjust marked items and re-check.`);
+                    }
                 });
             }
-            if (animationFrameId) cancelAnimationFrame(animationFrameId);
-            animateConfetti();
-        }
 
-        function animateConfetti() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            let activeParticles = false;
+            // Reset Handling
+            if (resetBtn) {
+                resetBtn.addEventListener('click', () => {
+                    cards.forEach(card => {
+                        card.classList.remove('correct-match', 'incorrect-match');
+                        if (pool) pool.appendChild(card);
+                    });
+                    if (scoreCounter) scoreCounter.innerText = `0 / ${totalCards}`;
+                    if (nextBtn) {
+                        nextBtn.setAttribute('disabled', 'true');
+                        nextBtn.classList.remove('active');
+                        nextBtn.innerText = "Complete Current Analysis";
+                    }
+                    hasCelebrated = false;
+                    if (ctx && canvas) ctx.clearRect(0, 0, canvas.width, canvas.height);
+                });
+            }
 
-            confetti.forEach(p => {
-                p.x += p.velocityX;
-                p.y += p.velocityY;
-                p.velocityY += p.gravity;
-                p.velocityX *= 0.98;
-                p.rotation += p.rotationSpeed;
+            if (nextBtn) {
+                nextBtn.addEventListener('click', () => {
+                    alert('Progress validated! Loading Topic 4 Modules...');
+                });
+            }
 
-                if (p.y < canvas.height) {
-                    activeParticles = true;
-                    ctx.save();
-                    ctx.translate(p.x, p.y);
-                    ctx.rotate((p.rotation * Math.PI) / 180);
-                    ctx.fillStyle = p.color;
-                    ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
-                    ctx.restore();
+            function triggerConfetti() {
+                if (!ctx || !canvas) return;
+                confetti = [];
+                const colors = ['#007aff', '#00e676', '#ff5252', '#ffeb3b', '#e91e63'];
+                for (let i = 0; i < 150; i++) {
+                    confetti.push({
+                        x: Math.random() < 0.5 ? 50 : canvas.width - 50,
+                        y: canvas.height - 50,
+                        size: Math.random() * 8 + 4,
+                        color: colors[Math.floor(Math.random() * colors.length)],
+                        velocityX: (Math.random() - 0.5) * 15 + (Math.random() < 0.5 ? 12 : -12),
+                        velocityY: -Math.random() * 20 - 10,
+                        gravity: 0.4,
+                        rotation: Math.random() * 360,
+                        rotationSpeed: (Math.random() - 0.5) * 10
+                    });
                 }
-            });
+                if (animationFrameId) cancelAnimationFrame(animationFrameId);
+                animateConfetti();
+            }
 
-            if (activeParticles) {
-                animationFrameId = requestAnimationFrame(animateConfetti);
+            function animateConfetti() {
+                if (!ctx || !canvas) return;
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                let activeParticles = false;
+
+                confetti.forEach(p => {
+                    p.x += p.velocityX;
+                    p.y += p.velocityY;
+                    p.velocityY += p.gravity;
+                    p.velocityX *= 0.98;
+                    p.rotation += p.rotationSpeed;
+
+                    if (p.y < canvas.height) {
+                        activeParticles = true;
+                        ctx.save();
+                        ctx.translate(p.x, p.y);
+                        ctx.rotate((p.rotation * Math.PI) / 180);
+                        ctx.fillStyle = p.color;
+                        ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
+                        ctx.restore();
+                    }
+                });
+
+                if (activeParticles) {
+                    animationFrameId = requestAnimationFrame(animateConfetti);
+                }
+            }
+        });
+    </script>
+</body>
+</html>
