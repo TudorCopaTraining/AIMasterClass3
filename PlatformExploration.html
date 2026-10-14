@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Level 4 Apprenticeship - Module 3: Platform Exploration Practical Task</title>
+    <link rel="stylesheet" href="PlatformExploration.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-container">
+            <h1>Module 3: AI Tools & Automation Platforms</h1>
+            <p class="subtitle">Practical Task: Microsoft Ecosystem & Automation Integration</p>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <!-- Introduction Section -->
+        <section class="card intro-card">
+            <h2>Interactive Workshop Challenge</h2>
+            <p>Modern enterprise solutions combine conversational AI reasoning with automated backend execution. In this 2-part practical task, you will design a VIP guest escalation workflow for a hospitality enterprise using <strong>Microsoft Copilot Studio</strong> (Part 1) and <strong>Power Automate</strong> (Part 2).</p>
+            <p class="instructions-prompt"><strong>Your Task:</strong> Complete both parts below. Part 1 tests your ability to configure custom knowledge grounding and system prompts for an AI Copilot. Part 2 tests your ability to sequence event-driven triggers and action steps for automated process orchestration. Once both parts are successfully validated, the navigation bar below will unlock!</p>
+        </section>
+
+        <!-- Part 1: Microsoft Copilot Configuration -->
+        <section class="card task-card">
+            <h2>Part 1: Copilot Studio — Custom Agent Prompt Engineering</h2>
+            <p class="form-instructions">Configure the system prompt and knowledge source for a hotel concierge bot handling VIP guest requests.</p>
+            
+            <form id="ecosystem-form">
+                <div class="form-group">
+                    <label for="copilot-role"><strong>1. Define Agent Role & Persona:</strong></label>
+                    <select id="copilot-role" required>
+                        <option value="">-- Select Copilot Persona --</option>
+                        <option value="generic">General public web assistant with no hotel context</option>
+                        <option value="concierge">Specialized VIP Concierge Agent grounded in hotel policy & guest profiles</option>
+                        <option value="accountant">Internal corporate payroll assistant</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="copilot-knowledge"><strong>2. Select Knowledge Grounding Source:</strong></label>
+                    <select id="copilot-knowledge" required>
+                        <option value="">-- Select Data Source --</option>
+                        <option value="public">Unfiltered public internet search results</option>
+                        <option value="internal">Secure internal hotel policy SharePoint library & CRM guest history</option>
+                        <option value="none">No knowledge grounding (pure parameter generation)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="copilot-escalation"><strong>3. Define Escalation Trigger Rule:</strong></label>
+                    <select id="copilot-escalation" required>
+                        <option value="">-- Select Rule --</option>
+                        <option value="never">Never escalate to human staff; attempt to answer all complaints autonomously</option>
+                        <option value="vip">Instantly route VIP guest complaints or severe room issues to the Front Office Manager via workflow trigger</option>
+                        <option value="random">Escalate 50% of chats randomly</option>
+                    </select>
+                </div>
+            </form>
+        </section>
+
+        <!-- Part 2: Power Automate Workflow Orchestration -->
+        <section class="card task-card">
+            <h2>Part 2: Power Automate — Workflow Orchestration</h2>
+            <p class="form-instructions">Sequence the correct event-driven trigger and backend actions for the VIP guest escalation routine.</p>
+            
+            <form id="automation-form">
+                <div class="form-group">
+                    <label for="auto-trigger"><strong>1. Select Event-Driven Trigger:</strong></label>
+                    <select id="auto-trigger" required>
+                        <option value="">-- Select Trigger --</option>
+                        <option value="scheduled">Run a batch check every 24 hours</option>
+                        <option value="event">When Copilot detects a VIP guest grievance or special accommodation request</option>
+                        <option value="manual">When an employee manually types a spreadsheet row</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="auto-action1"><strong>2. Select Primary Action Step:</strong></label>
+                    <select id="auto-action1" required>
+                        <option value="">-- Select Action --</option>
+                        <option value="teams">Send an instant adaptive card notification to the Manager's Microsoft Teams channel</option>
+                        <option value="print">Print a physical receipt at head office</option>
+                        <option value="delete">Delete historical guest feedback records</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="auto-action2"><strong>3. Select Secondary Action Step:</strong></label>
+                    <select id="auto-action2" required>
+                        <option value="">-- Select Action --</option>
+                        <option value="crm">Update CRM guest profile tags and log incident in database</option>
+                        <option value="ignore">Ignore response and close ticket</option>
+                        <option value="email-spam">Send marketing newsletter to competitor hotels</option>
+                    </select>
+                </div>
+
+                <!-- Action Controls -->
+                <div class="controls-container">
+                    <div class="button-group">
+                        <button type="button" id="evaluate-btn" class="btn primary-btn">Submit & Validate Task</button>
+                        <button type="button" id="reveal-btn" class="btn secondary-btn">Reveal Model Solution</button>
+                        <button type="button" id="reset-btn" class="btn reset-btn">Reset Form</button>
+                    </div>
+                    <div id="evaluation-feedback" class="feedback-display"></div>
+                </div>
+            </form>
+        </section>
+
+        <!-- Masterclass Sequence Navigation Bar -->
+        <div class="masterclass-nav-container">
+            <div class="masterclass-nav-box">
+                <div>
+                    <span class="mc2-label">MC2 Masterclass Sequence</span>
+                    <span id="nav-status-text" class="lock-status-msg">🔒 Complete both platform parts or reveal answers to unlock next task</span>
+                </div>
+                <a id="next-activity-btn" href="Module3_Topic3.html" class="next-task-btn">
+                    <span>Proceed to Next Module Topic</span> &rarr;
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 AI Apprenticeship Curriculum — Level 4 Digital Skills</p>
+    </footer>
+
+    <!-- Interactive Validation & Helper Script -->
+    <script>
+        function unlockNextTask() {
+            const nextBtn = document.getElementById("next-activity-btn");
+            nextBtn.style.pointerEvents = "auto";
+            nextBtn.style.opacity = "1";
+            
+            const statusText = document.getElementById("nav-status-text");
+            statusText.style.color = "#34d399";
+            statusText.innerText = "✨ Unlocked! Ready for the next topic.";
+        }
+
+        // Submit & Validate Handler
+        document.getElementById('evaluate-btn').addEventListener('click', function() {
+            const role = document.getElementById('copilot-role').value;
+            const knowledge = document.getElementById('copilot-knowledge').value;
+            const escalation = document.getElementById('copilot-escalation').value;
+            
+            const trigger = document.getElementById('auto-trigger').value;
+            const action1 = document.getElementById('auto-action1').value;
+            const action2 = document.getElementById('auto-action2').value;
+
+            const feedbackDisplay = document.getElementById('evaluation-feedback');
+            const statusText = document.getElementById("nav-status-text");
+            const nextBtn = document.getElementById("next-activity-btn");
+
+            if (!role || !knowledge || !escalation || !trigger || !action1 || !action2) {
+                feedbackDisplay.innerHTML = `<span class="error-text">⚠️ Please make a selection for all 6 fields across Part 1 and Part 2.</span>`;
+                nextBtn.style.pointerEvents = "none";
+                nextBtn.style.opacity = "0.5";
+                statusText.style.color = "#f59e0b";
+                statusText.innerText = "🔒 Incomplete task. Fill all fields to unlock.";
+                return;
+            }
+
+            // Validate correct pedagogical logic
+            if (role === 'concierge' && knowledge === 'internal' && escalation === 'vip' && 
+                trigger === 'event' && action1 === 'teams' && action2 === 'crm') {
+                feedbackDisplay.innerHTML = `<span class="success-text">✅ Excellent work! Both Copilot grounding and Power Automate orchestration sequences are correctly configured.</span>`;
+                unlockNextTask();
+            } else {
+                feedbackDisplay.innerHTML = `<span class="error-text">❌ Not quite right! Review your choices: ensure the agent is grounded in internal hotel data and triggers an automated Teams/CRM workflow for VIPs.</span>`;
+                nextBtn.style.pointerEvents = "none";
+                nextBtn.style.opacity = "0.5";
+                statusText.style.color = "#f59e0b";
+                statusText.innerText = "🔒 Review configuration and try again.";
+            }
+        });
+
+        // Reveal Model Solution Handler
+        document.getElementById('reveal-btn').addEventListener('click', function() {
+            document.getElementById('copilot-role').value = 'concierge';
+            document.getElementById('copilot-knowledge').value = 'internal';
+            document.getElementById('copilot-escalation').value = 'vip';
+            
+            document.getElementById('auto-trigger').value = 'event';
+            document.getElementById('auto-action1').value = 'teams';
+            document.getElementById('auto-action2').value = 'crm';
+
+            const feedbackDisplay = document.getElementById('evaluation-feedback');
+            feedbackDisplay.innerHTML = `<span class="success-text">💡 Model solution revealed! Review the correct Copilot and Power Automate workflow configuration above.</span>`;
+            
+            unlockNextTask();
+        });
+
+        // Reset Form Handler
+        document.getElementById('reset-btn').addEventListener('click', function() {
+            document.getElementById('ecosystem-form').reset();
+            document.getElementById('automation-form').reset();
+            document.getElementById('evaluation-feedback').innerHTML = '';
+            
+            const nextBtn = document.getElementById("next-activity-btn");
+            nextBtn.style.pointerEvents = "none";
+            nextBtn.style.opacity = "0.5";
+            
+            const statusText = document.getElementById("nav-status-text");
+            statusText.style.color = "#f59e0b";
+            statusText.innerText = "🔒 Complete both platform parts or reveal answers to unlock next task";
+        });
+    </script>
+</body>
+</html>
