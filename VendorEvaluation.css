@@ -1,0 +1,331 @@
+/* Base Reset & Theme Variables */
+:root {
+    --bg-color: #0b0f19;
+    --card-bg: #131b2e;
+    --border-color: #334155;
+    --text-main: #e2e8f0;
+    --text-muted: #94a3b8;
+    --accent-blue: #0284c7;
+    --accent-blue-hover: #0369a1;
+    --success-green: #34d399;
+    --error-red: #f87171;
+    --warning-amber: #f59e0b;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    line-height: 1.6;
+    padding-bottom: 60px;
+}
+
+/* Header Styling */
+.site-header {
+    background: linear-gradient(135deg, #1e293b 0%, #0b0f19 100%);
+    border-bottom: 1px solid var(--border-color);
+    padding: 2.5rem 1rem;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.header-container {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.site-header h1 {
+    font-size: 2.2rem;
+    color: #38bdf8;
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+}
+
+.subtitle {
+    font-size: 1.1rem;
+    color: #cbd5e1;
+}
+
+/* Main Content Layout */
+.main-content {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+/* Card Containers */
+.card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
+}
+
+.card h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: #ffffff;
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 0.5rem;
+}
+
+.intro-card p {
+    margin-bottom: 1rem;
+    color: #cbd5e1;
+    font-size: 1.05rem;
+}
+
+.intro-card strong {
+    color: #ffffff;
+}
+
+.instructions-prompt {
+    color: #bae6fd;
+    background: rgba(56, 189, 248, 0.15);
+    padding: 1.25rem;
+    border-radius: 8px;
+    border-left: 4px solid #38bdf8;
+    margin-top: 1.25rem;
+}
+
+/* Profiles Grid */
+.profiles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1rem;
+}
+
+.profile-box {
+    background: rgba(15, 23, 42, 0.7);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1.25rem;
+}
+
+.profile-box h3 {
+    color: #38bdf8;
+    font-size: 1.1rem;
+    margin-bottom: 0.75rem;
+}
+
+.profile-box p {
+    font-size: 0.92rem;
+    color: #cbd5e1;
+    margin-bottom: 0.5rem;
+}
+
+/* Scoring Matrix Table */
+.form-instructions {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    margin-bottom: 1.25rem;
+}
+
+.table-responsive {
+    overflow-x: auto;
+    margin-bottom: 1.5rem;
+}
+
+.matrix-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 0.95rem;
+}
+
+.matrix-table th, .matrix-table td {
+    padding: 0.85rem;
+    border: 1px solid var(--border-color);
+}
+
+.matrix-table th {
+    background: #1e293b;
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.matrix-table td {
+    background: rgba(15, 23, 42, 0.5);
+    color: #f8fafc;
+}
+
+.weight-input, .score-input {
+    width: 70px;
+    background: #0f172a;
+    color: #ffffff;
+    border: 1px solid var(--border-color);
+    padding: 0.5rem;
+    border-radius: 4px;
+    text-align: center;
+    font-size: 0.95rem;
+    outline: none;
+}
+
+.weight-input:focus, .score-input:focus, #vendor-selection:focus, #justification-text:focus {
+    border-color: #38bdf8;
+}
+
+/* Justification Box */
+.justification-box {
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+#vendor-selection {
+    width: 100%;
+    background: #0f172a;
+    color: #ffffff;
+    border: 1px solid var(--border-color);
+    padding: 0.85rem;
+    border-radius: 6px;
+    font-size: 1rem;
+    margin-top: 0.5rem;
+    cursor: pointer;
+}
+
+#justification-text {
+    width: 100%;
+    background: #0f172a;
+    color: #ffffff;
+    border: 1px solid var(--border-color);
+    padding: 0.85rem;
+    border-radius: 6px;
+    font-size: 1rem;
+    margin-top: 0.5rem;
+    resize: vertical;
+    outline: none;
+}
+
+/* Controls & Buttons */
+.controls-container {
+    margin-top: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+}
+
+.button-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.btn {
+    border: none;
+    padding: 0.85rem 1.5rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+.primary-btn {
+    background-color: var(--accent-blue);
+    color: white;
+}
+
+.primary-btn:hover {
+    background-color: var(--accent-blue-hover);
+}
+
+.secondary-btn {
+    background-color: #334155;
+    color: #ffffff;
+}
+
+.secondary-btn:hover {
+    background-color: #475569;
+}
+
+.reset-btn {
+    background-color: #475569;
+    color: #cbd5e1;
+}
+
+.reset-btn:hover {
+    background-color: #64748b;
+    color: #ffffff;
+}
+
+.btn:active {
+    transform: scale(0.98);
+}
+
+.feedback-display {
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.success-text { color: var(--success-green); }
+.error-text { color: var(--error-red); }
+
+/* Masterclass Sequence Navigation Bar Styles */
+.masterclass-nav-container {
+    margin-top: 40px;
+    padding: 0;
+}
+
+.masterclass-nav-box {
+    background: #131b2e;
+    border: 1px solid var(--border-color);
+    padding: 1.25rem 1.5rem;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
+}
+
+.mc2-label {
+    font-size: 10px;
+    font-family: monospace;
+    color: #38bdf8;
+    font-weight: bold;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 4px;
+}
+
+.lock-status-msg {
+    font-size: 12px;
+    color: var(--warning-amber);
+    display: block;
+}
+
+.next-task-btn {
+    background: var(--accent-blue);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    pointer-events: none;
+    opacity: 0.5;
+    transition: all 0.3s;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    margin-top: 4rem;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
