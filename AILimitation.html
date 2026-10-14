@@ -4,13 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Capability vs Limitation Analysis</title>
-    <link rel="stylesheet" href="AILimitation.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <header>
         <h1>AI Tool Analysis: Capability vs Limitation</h1>
         <p>Analyse your designated AI tool. Categorise the operational frames below by dragging or clicking them into the correct buckets.</p>
+        
+        <!-- Score Counter Widget -->
+        <div class="score-container">
+            <span class="score-label">Analysis Accuracy:</span>
+            <span id="scoreCounter" class="score-value">0 / 6</span>
+        </div>
     </header>
 
     <main class="container">
@@ -49,32 +55,31 @@
 
         <!-- Control and Navigation Panel -->
         <footer class="action-panel">
-            <button id="showAnswersBtn" class="btn btn-secondary">Show Correct Answers</button>
+            <button id="showAnswersBtn" class="btn btn-secondary">Reveal & Auto-Place Answers</button>
             <button id="nextTaskBtn" class="btn btn-primary" disabled>Complete Current Analysis</button>
         </footer>
     </main>
 
     <script>
         const cards = document.querySelectorAll('.card');
-        const zones = document.querySelectorAll('.zone');
         const targets = document.querySelectorAll('.zone-target');
         const nextBtn = document.getElementById('nextTaskBtn');
         const showAnswersBtn = document.getElementById('showAnswersBtn');
+        const scoreCounter = document.getElementById('scoreCounter');
         const totalCards = cards.length;
 
-        // Drag and Drop Logic
+        // Setup Drag and Drop Mechanics
         cards.forEach(card => {
             card.addEventListener('dragstart', (e) => {
                 e.dataTransfer.setData('text/plain', card.id);
             });
             
-            // Accessible Click-to-Move fallback
+            // Accessible Click Fallback
             card.addEventListener('click', () => {
-                // Clear any previous validation classes if moved manually
-                card.classList.remove('correct-match', 'incorrect-match');
-                const emptyOrFirstTarget = document.querySelector('.zone-target');
-                emptyOrFirstTarget.appendChild(card);
-                checkProgress();
+                const targetZoneType = card.getAttribute('data-correct');
+                const matchingZone = document.querySelector(`#zone-${targetZoneType} .zone-target`);
+                matchingZone.appendChild(card);
+                evaluatePlacement();
             });
         });
 
@@ -84,26 +89,15 @@
                 e.preventDefault();
                 const cardId = e.dataTransfer.getData('text/plain');
                 const card = document.getElementById(cardId);
-                // Clear validation status upon moving
-                card.classList.remove('correct-match', 'incorrect-match');
                 target.appendChild(card);
-                checkProgress();
+                evaluatePlacement();
             });
         });
 
-        function checkProgress() {
-            const placedCards = document.querySelectorAll('.zone-target .card').length;
-            if (placedCards === totalCards) {
-                nextBtn.removeAttribute('disabled');
-                nextBtn.classList.add('active');
-            } else {
-                nextBtn.setAttribute('disabled', 'true');
-                nextBtn.classList.remove('active');
-            }
-        }
+        // Evaluates user performance, updates UI colours, handles metrics and unlocking
+        function evaluatePlacement() {
+            let correctCount = 0;
 
-        // Reveal Solution & Grade Current Positions
-        showAnswersBtn.addEventListener('click', () => {
             cards.forEach(card => {
                 const currentZone = card.closest('.zone');
                 if (currentZone) {
@@ -113,20 +107,44 @@
                     if (currentZoneType === correctZoneType) {
                         card.classList.remove('incorrect-match');
                         card.classList.add('correct-match');
+                        correctCount++;
                     } else {
                         card.classList.remove('correct-match');
                         card.classList.add('incorrect-match');
                     }
                 } else {
-                    // Item was left unassigned in pool
-                    card.classList.add('incorrect-match');
+                    card.classList.remove('correct-match', 'incorrect-match');
                 }
             });
+
+            // Update live metrics dashboard
+            scoreCounter.innerText = `${correctCount} / ${totalCards}`;
+
+            // Unlock next stage criteria condition
+            if (correctCount === totalCards) {
+                nextBtn.removeAttribute('disabled');
+                nextBtn.classList.add('active');
+                nextBtn.innerText = "Proceed to Next Task →";
+            } else {
+                nextBtn.setAttribute('disabled', 'true');
+                nextBtn.classList.remove('active');
+                nextBtn.innerText = "Complete Current Analysis";
+            }
+        }
+
+        // Action: Cheat-code reveal / Auto-Solver framework
+        showAnswersBtn.addEventListener('click', () => {
+            cards.forEach(card => {
+                const correctZoneType = card.getAttribute('data-correct');
+                const destinationTarget = document.querySelector(`#zone-${correctZoneType} .zone-target`);
+                destinationTarget.appendChild(card);
+            });
+            evaluatePlacement();
         });
 
-        // Next task navigation wrapper
+        // Navigation forward trigger routing
         nextBtn.addEventListener('click', () => {
-            alert('Redirecting to the next task module...');
+            alert('Progress validated! Redirecting to the next task module...');
             // window.location.href = "task2.html";
         });
     </script>
