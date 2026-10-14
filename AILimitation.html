@@ -10,7 +10,7 @@
 
     <header>
         <h1>AI Tool Analysis: Capability vs Limitation</h1>
-        <p>Analyse your designated AI tool. Categorise the cards below into their correct operational frames.</p>
+        <p>Analyse your designated AI tool. Categorise the operational frames below by dragging or clicking them into the correct buckets.</p>
     </header>
 
     <main class="container">
@@ -18,45 +18,48 @@
         <section class="cards-pool" id="cardsPool">
             <h3>Operational Attributes</h3>
             <div class="pool-wrapper" id="pool">
-                <div class="card" draggable="true" data-type="well" id="c1">Processing High-Volume Data Arrays</div>
-                <div class="card" draggable="true" data-type="poorly" id="c2">Identifying Nuanced Context & Irony</div>
-                <div class="card" draggable="true" data-type="human" id="c3">Ethical Sign-off & Accountability</div>
-                <div class="card" draggable="true" data-type="well" id="c4">Automating Repetitive Tasks</div>
-                <div class="card" draggable="true" data-type="poorly" id="c5">Preventing Information Hallucinations</div>
-                <div class="card" draggable="true" data-type="human" id="c6">Fact-Checking Critical Metrics</div>
+                <div class="card" draggable="true" data-correct="well" id="c1">Processing High-Volume Data Arrays</div>
+                <div class="card" draggable="true" data-correct="poorly" id="c2">Identifying Nuanced Context & Irony</div>
+                <div class="card" draggable="true" data-correct="human" id="c3">Ethical Sign-off & Accountability</div>
+                <div class="card" draggable="true" data-correct="well" id="c4">Automating Repetitive Tasks</div>
+                <div class="card" draggable="true" data-correct="poorly" id="c5">Preventing Information Hallucinations</div>
+                <div class="card" draggable="true" data-correct="human" id="c6">Fact-Checking Critical Metrics</div>
             </div>
         </section>
 
         <section class="drop-zones">
             <!-- Zone 1: What it does well -->
-            <div class="zone" data-target="well">
+            <div class="zone" id="zone-well" data-zone="well">
                 <h3>What It Does Well</h3>
-                <div class="zone-target" id="zone-well"></div>
+                <div class="zone-target"></div>
             </div>
 
             <!-- Zone 2: What it does poorly -->
-            <div class="zone" data-target="poorly">
+            <div class="zone" id="zone-poorly" data-zone="poorly">
                 <h3>What It Does Poorly</h3>
-                <div class="zone-target" id="zone-poorly"></div>
+                <div class="zone-target"></div>
             </div>
 
             <!-- Zone 3: Human Intervention -->
-            <div class="zone" data-target="human">
+            <div class="zone" id="zone-human" data-zone="human">
                 <h3>Human Intervention Required</h3>
-                <div class="zone-target" id="zone-human"></div>
+                <div class="zone-target"></div>
             </div>
         </section>
 
-        <!-- Dynamic Action Button Panel -->
+        <!-- Control and Navigation Panel -->
         <footer class="action-panel">
+            <button id="showAnswersBtn" class="btn btn-secondary">Show Correct Answers</button>
             <button id="nextTaskBtn" class="btn btn-primary" disabled>Complete Current Analysis</button>
         </footer>
     </main>
 
     <script>
         const cards = document.querySelectorAll('.card');
-        const zones = document.querySelectorAll('.zone-target');
+        const zones = document.querySelectorAll('.zone');
+        const targets = document.querySelectorAll('.zone-target');
         const nextBtn = document.getElementById('nextTaskBtn');
+        const showAnswersBtn = document.getElementById('showAnswersBtn');
         const totalCards = cards.length;
 
         // Drag and Drop Logic
@@ -65,21 +68,25 @@
                 e.dataTransfer.setData('text/plain', card.id);
             });
             
-            // Mobile Click-to-Move fallback
+            // Accessible Click-to-Move fallback
             card.addEventListener('click', () => {
-                const nextZone = document.querySelector('.zone-target:empty') || document.querySelector('#zone-well');
-                nextZone.appendChild(card);
+                // Clear any previous validation classes if moved manually
+                card.classList.remove('correct-match', 'incorrect-match');
+                const emptyOrFirstTarget = document.querySelector('.zone-target');
+                emptyOrFirstTarget.appendChild(card);
                 checkProgress();
             });
         });
 
-        zones.forEach(zone => {
-            zone.addEventListener('dragover', (e) => e.preventDefault());
-            zone.addEventListener('drop', (e) => {
+        targets.forEach(target => {
+            target.addEventListener('dragover', (e) => e.preventDefault());
+            target.addEventListener('drop', (e) => {
                 e.preventDefault();
                 const cardId = e.dataTransfer.getData('text/plain');
                 const card = document.getElementById(cardId);
-                zone.appendChild(card);
+                // Clear validation status upon moving
+                card.classList.remove('correct-match', 'incorrect-match');
+                target.appendChild(card);
                 checkProgress();
             });
         });
@@ -88,16 +95,39 @@
             const placedCards = document.querySelectorAll('.zone-target .card').length;
             if (placedCards === totalCards) {
                 nextBtn.removeAttribute('disabled');
-                nextBtn.innerText = "Proceed to Next Task →";
                 nextBtn.classList.add('active');
+            } else {
+                nextBtn.setAttribute('disabled', 'true');
+                nextBtn.classList.remove('active');
             }
         }
 
-        // Action routing to next step
+        // Reveal Solution & Grade Current Positions
+        showAnswersBtn.addEventListener('click', () => {
+            cards.forEach(card => {
+                const currentZone = card.closest('.zone');
+                if (currentZone) {
+                    const currentZoneType = currentZone.getAttribute('data-zone');
+                    const correctZoneType = card.getAttribute('data-correct');
+                    
+                    if (currentZoneType === correctZoneType) {
+                        card.classList.remove('incorrect-match');
+                        card.classList.add('correct-match');
+                    } else {
+                        card.classList.remove('correct-match');
+                        card.classList.add('incorrect-match');
+                    }
+                } else {
+                    // Item was left unassigned in pool
+                    card.classList.add('incorrect-match');
+                }
+            });
+        });
+
+        // Next task navigation wrapper
         nextBtn.addEventListener('click', () => {
             alert('Redirecting to the next task module...');
-            // Change the window allocation destination link below to connect tasks:
-            // window.location.href = "https://github.io";
+            // window.location.href = "task2.html";
         });
     </script>
 </body>
