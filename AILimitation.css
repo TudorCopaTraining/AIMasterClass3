@@ -106,7 +106,7 @@ header p {
     background: var(--bg-card-surface);
     border: 2px dashed var(--border-dim);
     border-radius: 12px;
-    min-height: 65px;
+    min-height: 80px;
     margin-bottom: 40px;
 }
 
@@ -172,13 +172,14 @@ header p {
 
 .zone-target {
     background: #11141a;
-    min-height: 220px;
+    min-height: 250px;
     border-radius: 8px;
-    border: 1px solid rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.05);
     padding: 14px;
     display: flex;
     flex-direction: column;
     gap: 12px;
+    margin-top: 15px;
 }
 
 .action-panel {
@@ -260,3 +261,4 @@ header p {
     .btn {
         width: 100%;
     }
+}
