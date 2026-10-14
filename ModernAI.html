@@ -15,158 +15,156 @@
     </header>
 
     <main class="main-content">
-        <div class="content-wrapper">
-            <!-- Introduction Section -->
-            <section class="card intro-card">
-                <h2>Welcome, Apprentices!</h2>
-                <p>Modern enterprise solutions rarely rely on just one technology. They combine <strong>Artificial Intelligence, Machine Learning, Generative AI, Automation, Augmented Intelligence, and Intelligent Process Automation (IPA)</strong> to solve complex business challenges.</p>
-                <p class="instructions-prompt"><strong>Your Task:</strong> Match each real-world enterprise scenario below to its correct core ecosystem pillar. Read each scenario carefully, select the right category from the dropdown, and check your answers. Once all 6 are correct, the navigation bar below will unlock!</p>
-            </section>
+        <!-- Introduction Section -->
+        <section class="card intro-card">
+            <h2>Welcome, Apprentices!</h2>
+            <p>Modern enterprise solutions rarely rely on just one technology. They combine <strong>Artificial Intelligence, Machine Learning, Generative AI, Automation, Augmented Intelligence, and Intelligent Process Automation (IPA)</strong> to solve complex business challenges.</p>
+            <p class="instructions-prompt"><strong>Your Task:</strong> Match each real-world enterprise scenario below to its correct core ecosystem pillar. Read each scenario carefully, select the right category from the dropdown, and check your answers. Once all 6 are correct, the navigation bar below will unlock!</p>
+        </section>
 
-            <!-- Interactive Matching Task Section -->
-            <section class="card task-card">
-                <h2>Ecosystem Pillar Challenge</h2>
-                <form id="ecosystem-form">
-                    
-                    <!-- Scenario 1 -->
-                    <div class="scenario-item" data-index="1">
-                        <div class="scenario-text">
-                            <span class="badge">Scenario 1</span>
-                            <p>A manufacturing firm programs robotic arms on the assembly line to repeatedly weld car doors based on fixed, pre-defined physical coordinates without making autonomous cognitive decisions.</p>
-                        </div>
-                        <div class="selection-box">
-                            <select class="pillar-select" data-answer="Automation" required>
-                                <option value="">-- Select Ecosystem Pillar --</option>
-                                <option value="Artificial Intelligence">Artificial Intelligence</option>
-                                <option value="Machine Learning">Machine Learning</option>
-                                <option value="Generative AI">Generative AI</option>
-                                <option value="Automation">Automation</option>
-                                <option value="Augmented Intelligence">Augmented Intelligence</option>
-                                <option value="Intelligent Process Automation">Intelligent Process Automation</option>
-                            </select>
-                            <span class="feedback-icon" id="feedback-1"></span>
-                        </div>
+        <!-- Interactive Matching Task Section -->
+        <section class="card task-card">
+            <h2>Ecosystem Pillar Challenge</h2>
+            <form id="ecosystem-form">
+                
+                <!-- Scenario 1 -->
+                <div class="scenario-item" data-index="1">
+                    <div class="scenario-text">
+                        <span class="badge">Scenario 1</span>
+                        <p>A manufacturing firm programs robotic arms on the assembly line to repeatedly weld car doors based on fixed, pre-defined physical coordinates without making autonomous cognitive decisions.</p>
                     </div>
-
-                    <!-- Scenario 2 -->
-                    <div class="scenario-item" data-index="2">
-                        <div class="scenario-text">
-                            <span class="badge">Scenario 2</span>
-                            <p>An online streaming platform feeds millions of past user watch histories into an algorithm to automatically predict and recommend the next show a user is likely to enjoy.</p>
-                        </div>
-                        <div class="selection-box">
-                            <select class="pillar-select" data-answer="Machine Learning" required>
-                                <option value="">-- Select Ecosystem Pillar --</option>
-                                <option value="Artificial Intelligence">Artificial Intelligence</option>
-                                <option value="Machine Learning">Machine Learning</option>
-                                <option value="Generative AI">Generative AI</option>
-                                <option value="Automation">Automation</option>
-                                <option value="Augmented Intelligence">Augmented Intelligence</option>
-                                <option value="Intelligent Process Automation">Intelligent Process Automation</option>
-                            </select>
-                            <span class="feedback-icon" id="feedback-2"></span>
-                        </div>
+                    <div class="selection-box">
+                        <select class="pillar-select" data-answer="Automation" required>
+                            <option value="">-- Select Ecosystem Pillar --</option>
+                            <option value="Artificial Intelligence">Artificial Intelligence</option>
+                            <option value="Machine Learning">Machine Learning</option>
+                            <option value="Generative AI">Generative AI</option>
+                            <option value="Automation">Automation</option>
+                            <option value="Augmented Intelligence">Augmented Intelligence</option>
+                            <option value="Intelligent Process Automation">Intelligent Process Automation</option>
+                        </select>
+                        <span class="feedback-icon" id="feedback-1"></span>
                     </div>
-
-                    <!-- Scenario 3 -->
-                    <div class="scenario-item" data-index="3">
-                        <div class="scenario-text">
-                            <span class="badge">Scenario 3</span>
-                            <p>A marketing team uses an LLM-based tool to instantly draft blog posts, brainstorm campaign slogans, and generate high-resolution promotional imagery from a simple text prompt.</p>
-                        </div>
-                        <div class="selection-box">
-                            <select class="pillar-select" data-answer="Generative AI" required>
-                                <option value="">-- Select Ecosystem Pillar --</option>
-                                <option value="Artificial Intelligence">Artificial Intelligence</option>
-                                <option value="Machine Learning">Machine Learning</option>
-                                <option value="Generative AI">Generative AI</option>
-                                <option value="Automation">Automation</option>
-                                <option value="Augmented Intelligence">Augmented Intelligence</option>
-                                <option value="Intelligent Process Automation">Intelligent Process Automation</option>
-                            </select>
-                            <span class="feedback-icon" id="feedback-3"></span>
-                        </div>
-                    </div>
-
-                    <!-- Scenario 4 -->
-                    <div class="scenario-item" data-index="4">
-                        <div class="scenario-text">
-                            <span class="badge">Scenario 4</span>
-                            <p>A medical diagnosis assistant analyses complex patient scan imagery and patient history, highlighting potential anomalies to help human radiologists make faster, more accurate treatment decisions.</p>
-                        </div>
-                        <div class="selection-box">
-                            <select class="pillar-select" data-answer="Augmented Intelligence" required>
-                                <option value="">-- Select Ecosystem Pillar --</option>
-                                <option value="Artificial Intelligence">Artificial Intelligence</option>
-                                <option value="Machine Learning">Machine Learning</option>
-                                <option value="Generative AI">Generative AI</option>
-                                <option value="Automation">Automation</option>
-                                <option value="Augmented Intelligence">Augmented Intelligence</option>
-                                <option value="Intelligent Process Automation">Intelligent Process Automation</option>
-                            </select>
-                            <span class="feedback-icon" id="feedback-4"></span>
-                        </div>
-                    </div>
-
-                    <!-- Scenario 5 -->
-                    <div class="scenario-item" data-index="5">
-                        <div class="scenario-text">
-                            <span class="badge">Scenario 5</span>
-                            <p>A logistics company combines Computer Vision, Optical Character Recognition (OCR), and workflow orchestration bots to autonomously read incoming digital supplier invoices, validate data against databases, and execute payments.</p>
-                        </div>
-                        <div class="selection-box">
-                            <select class="pillar-select" data-answer="Intelligent Process Automation" required>
-                                <option value="">-- Select Ecosystem Pillar --</option>
-                                <option value="Artificial Intelligence">Artificial Intelligence</option>
-                                <option value="Machine Learning">Machine Learning</option>
-                                <option value="Generative AI">Generative AI</option>
-                                <option value="Automation">Automation</option>
-                                <option value="Augmented Intelligence">Augmented Intelligence</option>
-                                <option value="Intelligent Process Automation">Intelligent Process Automation</option>
-                            </select>
-                            <span class="feedback-icon" id="feedback-5"></span>
-                        </div>
-                    </div>
-
-                    <!-- Scenario 6 -->
-                    <div class="scenario-item" data-index="6">
-                        <div class="scenario-text">
-                            <span class="badge">Scenario 6</span>
-                            <p>An autonomous software agent reasons through a complex chess board position or multi-step enterprise logistics problem by evaluating game rules, heuristic search trees, and goal-directed logic.</p>
-                        </div>
-                        <div class="selection-box">
-                            <select class="pillar-select" data-answer="Artificial Intelligence" required>
-                                <option value="">-- Select Ecosystem Pillar --</option>
-                                <option value="Artificial Intelligence">Artificial Intelligence</option>
-                                <option value="Machine Learning">Machine Learning</option>
-                                <option value="Generative AI">Generative AI</option>
-                                <option value="Automation">Automation</option>
-                                <option value="Augmented Intelligence">Augmented Intelligence</option>
-                                <option value="Intelligent Process Automation">Intelligent Process Automation</option>
-                            </select>
-                            <span class="feedback-icon" id="feedback-6"></span>
-                        </div>
-                    </div>
-
-                    <!-- Action Controls -->
-                    <div class="controls-container">
-                        <button type="button" id="check-answers-btn" class="btn primary-btn">Check My Answers</button>
-                        <div id="score-display" class="score-display"></div>
-                    </div>
-                </form>
-            </section>
-
-            <!-- Masterclass Sequence Navigation Bar -->
-            <div style="margin: 40px 0 0 0; padding: 0;">
-                <div style="background: #131b2e; border: 1px solid #334155; padding: 1.25rem 1.5rem; border-radius: 12px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3);">
-                    <div>
-                        <span style="font-size: 10px; font-family: monospace; color: #38bdf8; font-weight: bold; text-transform: uppercase; display: block; margin-bottom: 4px;">MC2 Masterclass Sequence</span>
-                        <span id="nav-status-text" style="font-size: 12px; color: #f59e0b; display: block;">🔒 Complete the activity or get 6/6 correct to unlock next task</span>
-                    </div>
-                    <a id="next-activity-btn" href="ModernAI_Part2.html" style="background: #0284c7; color: white; padding: 10px 20px; border-radius: 8px; font-size: 14px; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; pointer-events: none; opacity: 0.5; transition: all 0.3s;">
-                        <span>Proceed to Next Task</span> &rarr;
-                    </a>
                 </div>
+
+                <!-- Scenario 2 -->
+                <div class="scenario-item" data-index="2">
+                    <div class="scenario-text">
+                        <span class="badge">Scenario 2</span>
+                        <p>An online streaming platform feeds millions of past user watch histories into an algorithm to automatically predict and recommend the next show a user is likely to enjoy.</p>
+                    </div>
+                    <div class="selection-box">
+                        <select class="pillar-select" data-answer="Machine Learning" required>
+                            <option value="">-- Select Ecosystem Pillar --</option>
+                            <option value="Artificial Intelligence">Artificial Intelligence</option>
+                            <option value="Machine Learning">Machine Learning</option>
+                            <option value="Generative AI">Generative AI</option>
+                            <option value="Automation">Automation</option>
+                            <option value="Augmented Intelligence">Augmented Intelligence</option>
+                            <option value="Intelligent Process Automation">Intelligent Process Automation</option>
+                        </select>
+                        <span class="feedback-icon" id="feedback-2"></span>
+                    </div>
+                </div>
+
+                <!-- Scenario 3 -->
+                <div class="scenario-item" data-index="3">
+                    <div class="scenario-text">
+                        <span class="badge">Scenario 3</span>
+                        <p>A marketing team uses an LLM-based tool to instantly draft blog posts, brainstorm campaign slogans, and generate high-resolution promotional imagery from a simple text prompt.</p>
+                    </div>
+                    <div class="selection-box">
+                        <select class="pillar-select" data-answer="Generative AI" required>
+                            <option value="">-- Select Ecosystem Pillar --</option>
+                            <option value="Artificial Intelligence">Artificial Intelligence</option>
+                            <option value="Machine Learning">Machine Learning</option>
+                            <option value="Generative AI">Generative AI</option>
+                            <option value="Automation">Automation</option>
+                            <option value="Augmented Intelligence">Augmented Intelligence</option>
+                            <option value="Intelligent Process Automation">Intelligent Process Automation</option>
+                        </select>
+                        <span class="feedback-icon" id="feedback-3"></span>
+                    </div>
+                </div>
+
+                <!-- Scenario 4 -->
+                <div class="scenario-item" data-index="4">
+                    <div class="scenario-text">
+                        <span class="badge">Scenario 4</span>
+                        <p>A medical diagnosis assistant analyses complex patient scan imagery and patient history, highlighting potential anomalies to help human radiologists make faster, more accurate treatment decisions.</p>
+                    </div>
+                    <div class="selection-box">
+                        <select class="pillar-select" data-answer="Augmented Intelligence" required>
+                            <option value="">-- Select Ecosystem Pillar --</option>
+                            <option value="Artificial Intelligence">Artificial Intelligence</option>
+                            <option value="Machine Learning">Machine Learning</option>
+                            <option value="Generative AI">Generative AI</option>
+                            <option value="Automation">Automation</option>
+                            <option value="Augmented Intelligence">Augmented Intelligence</option>
+                            <option value="Intelligent Process Automation">Intelligent Process Automation</option>
+                        </select>
+                        <span class="feedback-icon" id="feedback-4"></span>
+                    </div>
+                </div>
+
+                <!-- Scenario 5 -->
+                <div class="scenario-item" data-index="5">
+                    <div class="scenario-text">
+                        <span class="badge">Scenario 5</span>
+                        <p>A logistics company combines Computer Vision, Optical Character Recognition (OCR), and workflow orchestration bots to autonomously read incoming digital supplier invoices, validate data against databases, and execute payments.</p>
+                    </div>
+                    <div class="selection-box">
+                        <select class="pillar-select" data-answer="Intelligent Process Automation" required>
+                            <option value="">-- Select Ecosystem Pillar --</option>
+                            <option value="Artificial Intelligence">Artificial Intelligence</option>
+                            <option value="Machine Learning">Machine Learning</option>
+                            <option value="Generative AI">Generative AI</option>
+                            <option value="Automation">Automation</option>
+                            <option value="Augmented Intelligence">Augmented Intelligence</option>
+                            <option value="Intelligent Process Automation">Intelligent Process Automation</option>
+                        </select>
+                        <span class="feedback-icon" id="feedback-5"></span>
+                    </div>
+                </div>
+
+                <!-- Scenario 6 -->
+                <div class="scenario-item" data-index="6">
+                    <div class="scenario-text">
+                        <span class="badge">Scenario 6</span>
+                        <p>An autonomous software agent reasons through a complex chess board position or multi-step enterprise logistics problem by evaluating game rules, heuristic search trees, and goal-directed logic.</p>
+                    </div>
+                    <div class="selection-box">
+                        <select class="pillar-select" data-answer="Artificial Intelligence" required>
+                            <option value="">-- Select Ecosystem Pillar --</option>
+                            <option value="Artificial Intelligence">Artificial Intelligence</option>
+                            <option value="Machine Learning">Machine Learning</option>
+                            <option value="Generative AI">Generative AI</option>
+                            <option value="Automation">Automation</option>
+                            <option value="Augmented Intelligence">Augmented Intelligence</option>
+                            <option value="Intelligent Process Automation">Intelligent Process Automation</option>
+                        </select>
+                        <span class="feedback-icon" id="feedback-6"></span>
+                    </div>
+                </div>
+
+                <!-- Action Controls -->
+                <div class="controls-container">
+                    <button type="button" id="check-answers-btn" class="btn primary-btn">Check My Answers</button>
+                    <div id="score-display" class="score-display"></div>
+                </div>
+            </form>
+        </section>
+
+        <!-- Masterclass Sequence Navigation Bar -->
+        <div class="masterclass-nav-container">
+            <div class="masterclass-nav-box">
+                <div>
+                    <span class="mc2-label">MC2 Masterclass Sequence</span>
+                    <span id="nav-status-text" class="lock-status-msg">🔒 Complete the activity or get 6/6 correct to unlock next task</span>
+                </div>
+                <a id="next-activity-btn" href="ModernAI_Part2.html" class="next-task-btn">
+                    <span>Proceed to Next Task</span> &rarr;
+                </a>
             </div>
         </div>
     </main>
@@ -177,7 +175,6 @@
 
     <!-- Interactive Validation Script -->
     <script>
-        // Unlock function provided by MC2 Masterclass Sequence
         function unlockNextTask() {
             const nextBtn = document.getElementById("next-activity-btn");
             nextBtn.style.pointerEvents = "auto";
@@ -227,7 +224,6 @@
                 scoreDisplay.innerHTML = `<span>Your Score: <strong>${correctCount} / 6</strong></span>`;
             }
 
-            // Lock / Unlock logic based on perfect score (6/6)
             if (correctCount === 6) {
                 unlockNextTask();
             } else {
