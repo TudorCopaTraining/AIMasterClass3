@@ -4,9 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Capability vs Limitation Analysis</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="AILimitation.css">
 </head>
 <body>
+
+    <!-- Confetti Animation Canvas -->
+    <canvas id="confettiCanvas"></canvas>
 
     <header>
         <h1>AI Tool Analysis: Capability vs Limitation</h1>
@@ -68,6 +71,20 @@
         const scoreCounter = document.getElementById('scoreCounter');
         const totalCards = cards.length;
 
+        // Confetti Canvas System variables
+        const canvas = document.getElementById('confettiCanvas');
+        const ctx = canvas.getContext('2d');
+        let confetti = [];
+        let animationFrameId = null;
+        let hasCelebrated = false; // Prevents re-triggering multiple times
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
         // Setup Drag and Drop Mechanics
         cards.forEach(card => {
             card.addEventListener('dragstart', (e) => {
@@ -125,14 +142,20 @@
                 nextBtn.removeAttribute('disabled');
                 nextBtn.classList.add('active');
                 nextBtn.innerText = "Proceed to Next Task →";
+                
+                if (!hasCelebrated) {
+                    triggerConfetti();
+                    hasCelebrated = true;
+                }
             } else {
                 nextBtn.setAttribute('disabled', 'true');
                 nextBtn.classList.remove('active');
                 nextBtn.innerText = "Complete Current Analysis";
+                hasCelebrated = false; // Reset to allow party if they break out and fix it again
             }
         }
 
-        // Action: Cheat-code reveal / Auto-Solver framework
+        // Action: Reveal / Auto-Solver framework
         showAnswersBtn.addEventListener('click', () => {
             cards.forEach(card => {
                 const correctZoneType = card.getAttribute('data-correct');
@@ -147,6 +170,59 @@
             alert('Progress validated! Redirecting to the next task module...');
             // window.location.href = "task2.html";
         });
+
+        // Custom Light Confetti Particle System
+        function triggerConfetti() {
+            confetti = [];
+            const colors = ['#007aff', '#00e676', '#ff5252', '#ffeb3b', '#e91e63'];
+            
+            // Generate distinct streams from left/right sides
+            for (let i = 0; i < 150; i++) {
+                confetti.push({
+                    x: Math.random() < 0.5 ? 50 : canvas.width - 50,
+                    y: canvas.height - 50,
+                    size: Math.random() * 8 + 4,
+                    color: colors[Math.floor(Math.random() * colors.length)],
+                    velocityX: (Math.random() - 0.5) * 15 + (Math.random() < 0.5 ? 12 : -12),
+                    velocityY: -Math.random() * 20 - 10,
+                    gravity: 0.4,
+                    rotation: Math.random() * 360,
+                    rotationSpeed: (Math.random() - 0.5) * 10
+                });
+            }
+
+            if (animationFrameId) cancelAnimationFrame(animationFrameId);
+            animateConfetti();
+        }
+
+        function animateConfetti() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            let activeParticles = false;
+
+            confetti.forEach(p => {
+                p.x += p.velocityX;
+                p.y += p.velocityY;
+                p.velocityY += p.gravity;
+                p.velocityX *= 0.98; // Friction air resistance
+                p.rotation += p.rotationSpeed;
+
+                if (p.y < canvas.height) {
+                    activeParticles = true;
+                    ctx.save();
+                    ctx.translate(p.x, p.y);
+                    ctx.rotate((p.rotation * Math.PI) / 180);
+                    ctx.fillStyle = p.color;
+                    ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
+                    ctx.restore();
+                }
+            });
+
+            if (activeParticles) {
+                animationFrameId = requestAnimationFrame(animateConfetti);
+            } else {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+            }
+        }
     </script>
 </body>
 </html>
