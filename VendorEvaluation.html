@@ -18,8 +18,13 @@
         <!-- Introduction Section -->
         <section class="card intro-card">
             <h2>Interactive Workshop Challenge</h2>
-            <p>Applying the principle of <em>"Start with the problem, not the technology,"</em> you must evaluate competing AI vendor solutions for a growing hospitality enterprise[cite: 2]. When balancing cost, features, and strict data security compliance, choosing the right partner is critical[cite: 2].</p>
-            <p class="instructions-prompt"><strong>Your Task:</strong> Select the single best vendor to solve the business challenge and provide a brief strategic justification (minimum 10 words)[cite: 2]. Once completed, submit your evaluation or reveal the model solution to unlock your completion certificate[cite: 2]!</p>
+            <p>Applying the principle of <em>"Start with the problem, not the technology,"</em> you must evaluate three competing AI vendor solutions for a growing hospitality enterprise[cite: 2]. Review their profiles below:</p>
+            <ul style="margin: 10px 0 15px 20px; line-height: 1.6;">
+                <li><strong>Vendor A (Nexus GuestBot):</strong> Offers exceptional staff and guest user experience (UX) and fast deployment, but comes with higher costs and standard data-retention policies.</li>
+                <li><strong>Vendor B (Aura Hospitality AI):</strong> Built specifically for hospitality with enterprise-grade security, zero data-retention guarantees, and full GDPR compliance.</li>
+                <li><strong>Vendor C (OmniServe Enterprise):</strong> The lowest-cost solution on the market, but lacks isolated tenant architecture and robust security safeguards for sensitive guest data.</li>
+            </ul>
+            <p class="instructions-prompt"><strong>Your Task:</strong> Select the single best vendor to solve the business challenge and provide a brief strategic justification explaining why they should be chosen (minimum 10 words)[cite: 2]. Once completed, submit your evaluation or reveal the model solution to unlock your completion certificate[cite: 2]!</p>
         </section>
 
         <!-- Simplified Vendor Selection Form -->
@@ -35,8 +40,8 @@
                         <option value="C">Vendor C: OmniServe Enterprise (Lowest cost, limited security)</option>
                     </select>
 
-                    <label for="justification-text" style="display: block;"><strong>Strategic Justification:</strong> Explain why this vendor is the best choice for a hospitality enterprise managing sensitive guest data (minimum 10 words)[cite: 2].</label>
-                    <textarea id="justification-text" rows="4" placeholder="Detail your rationale focusing on data security, risk mitigation, and business needs..." required style="width: 100%; padding: 10px; margin-top: 8px; border-radius: 8px; border: 1px solid #cbd5e1;"></textarea>
+                    <label for="justification-text" style="display: block;"><strong>Strategic Justification:</strong> Explain why this vendor should be chosen based on business requirements, risk mitigation, and security (minimum 10 words)[cite: 2].</label>
+                    <textarea id="justification-text" rows="4" placeholder="Detail your rationale focusing on why this vendor is the safest and most robust strategic choice..." required style="width: 100%; padding: 10px; margin-top: 8px; border-radius: 8px; border: 1px solid #cbd5e1;"></textarea>
                 </div>
 
                 <!-- Action Controls -->
@@ -110,7 +115,7 @@
             document.getElementById('vendor-selection').value = 'B';
 
             // Set Model Justification
-            document.getElementById('justification-text').value = "Vendor B (Aura Hospitality AI) is the optimal choice because enterprise security and GDPR compliance are critical priorities in hospitality[cite: 2]. While other options offer better UX or lower cost, Aura provides the necessary data-retention guarantees and secure architecture[cite: 2].";
+            document.getElementById('justification-text').value = "Vendor B (Aura Hospitality AI) should be chosen because enterprise security and GDPR compliance are critical priorities in hospitality[cite: 2]. While Vendor A offers better UX and Vendor C is cheaper, neither provides the necessary zero data-retention guarantees or isolated tenant architecture needed to protect sensitive guest data[cite: 2].";
 
             const feedbackDisplay = document.getElementById('evaluation-feedback');
             feedbackDisplay.innerHTML = `<span class="success-text">💡 Model solution revealed! Review the optimal vendor selection and expert justification above[cite: 2].</span>`;
