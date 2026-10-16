@@ -18,65 +18,29 @@
         <!-- Introduction Section -->
         <section class="card intro-card">
             <h2>Interactive Workshop Challenge</h2>
-            <p>Applying the principle of <em>"Start with the problem, not the technology,"</em> you must evaluate competing AI vendor solutions for a growing hospitality enterprise[cite: 2]. Each vendor presents different trade-offs across <strong>Cost, Features, Security, User Experience (UX), and Support</strong>[cite: 2].</p>
-            <p class="instructions-prompt"><strong>Your Task:</strong> Review the enterprise criteria weights below, select the single best vendor to solve the business challenge, and provide your strategic justification (minimum 10 words). Once completed, submit your evaluation or reveal the model solution to unlock your completion certificate[cite: 2]!</p>
+            <p>Applying the principle of <em>"Start with the problem, not the technology,"</em> you must evaluate competing AI vendor solutions for a growing hospitality enterprise[cite: 2]. When balancing cost, features, and strict data security compliance, choosing the right partner is critical[cite: 2].</p>
+            <p class="instructions-prompt"><strong>Your Task:</strong> Select the single best vendor to solve the business challenge and provide a brief strategic justification (minimum 10 words)[cite: 2]. Once completed, submit your evaluation or reveal the model solution to unlock your completion certificate[cite: 2]!</p>
         </section>
 
-        <!-- Vendor Selection Matrix Form -->
+        <!-- Simplified Vendor Selection Form -->
         <section class="card task-card">
-            <h2>Vendor Selection Matrix</h2>
+            <h2>Vendor Selection Decision</h2>
             <form id="evaluation-form">
-                <p class="form-instructions">Assign your priority weights (1 = Low Priority, 5 = Critical Priority) to each evaluation criterion based on enterprise needs[cite: 2].</p>
-
-                <div class="table-responsive">
-                    <table class="matrix-table">
-                        <thead>
-                            <tr>
-                                <th>Evaluation Criterion</th>
-                                <th>Priority Weight (1-5)[cite: 2]</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><strong>1. Cost & TCO</strong> (Affordability & Hidden fees)</td>
-                                <td><input type="number" min="1" max="5" class="weight-input" data-criterion="cost" required></td>
-                            </tr>
-                            <tr>
-                                <td><strong>2. Features & Integration</strong> (APIs & Workflow fit)</td>
-                                <td><input type="number" min="1" max="5" class="weight-input" data-criterion="features" required></td>
-                            </tr>
-                            <tr>
-                                <td><strong>3. Security & Data Protection</strong> (GDPR & Privacy)</td>
-                                <td><input type="number" min="1" max="5" class="weight-input" data-criterion="security" required></td>
-                            </tr>
-                            <tr>
-                                <td><strong>4. User Experience (UX)</strong> (Ease of staff adoption)</td>
-                                <td><input type="number" min="1" max="5" class="weight-input" data-criterion="ux" required></td>
-                            </tr>
-                            <tr>
-                                <td><strong>5. Vendor Support & Roadmap</strong> (SLAs & Stability)</td>
-                                <td><input type="number" min="1" max="5" class="weight-input" data-criterion="support" required></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <!-- Vendor Selection & Justification Section -->
-                <div class="justification-box">
+                <div class="justification-box" style="margin-top: 0;">
                     <label for="vendor-selection"><strong>Select the Best Vendor Solution:</strong></label>
-                    <select id="vendor-selection" required>
+                    <select id="vendor-selection" required style="width: 100%; padding: 10px; margin-top: 8px; margin-bottom: 16px; border-radius: 8px; border: 1px solid #cbd5e1;">
                         <option value="">-- Choose Optimal Vendor --</option>
-                        <option value="A">Vendor A: Nexus GuestBot</option>
-                        <option value="B">Vendor B: Aura Hospitality AI</option>
-                        <option value="C">Vendor C: OmniServe Enterprise</option>
+                        <option value="A">Vendor A: Nexus GuestBot (Best UX, higher cost)</option>
+                        <option value="B">Vendor B: Aura Hospitality AI (Best security & GDPR compliance)</option>
+                        <option value="C">Vendor C: OmniServe Enterprise (Lowest cost, limited security)</option>
                     </select>
 
-                    <label for="justification-text" style="margin-top: 1rem; display: block;"><strong>Strategic Justification:</strong> Explain why this vendor is the best choice based on the weighted criteria and risk mitigation (minimum 10 words)[cite: 2].</label>
-                    <textarea id="justification-text" rows="4" placeholder="Detail your rationale regarding trade-offs between cost, data security, and operational requirements..." required></textarea>
+                    <label for="justification-text" style="display: block;"><strong>Strategic Justification:</strong> Explain why this vendor is the best choice for a hospitality enterprise managing sensitive guest data (minimum 10 words)[cite: 2].</label>
+                    <textarea id="justification-text" rows="4" placeholder="Detail your rationale focusing on data security, risk mitigation, and business needs..." required style="width: 100%; padding: 10px; margin-top: 8px; border-radius: 8px; border: 1px solid #cbd5e1;"></textarea>
                 </div>
 
                 <!-- Action Controls -->
-                <div class="controls-container">
+                <div class="controls-container" style="margin-top: 20px;">
                     <div class="button-group">
                         <button type="button" id="evaluate-btn" class="btn primary-btn">Submit & Validate Task</button>
                         <button type="button" id="reveal-btn" class="btn secondary-btn">Reveal Model Solution</button>
@@ -120,7 +84,6 @@
 
         // Submit & Validate Handler
         document.getElementById('evaluate-btn').addEventListener('click', function() {
-            const weights = document.querySelectorAll('.weight-input');
             const vendorChoice = document.getElementById('vendor-selection').value;
             const justification = document.getElementById('justification-text').value.trim();
             const feedbackDisplay = document.getElementById('evaluation-feedback');
@@ -128,11 +91,8 @@
             const banner = document.getElementById("certificate-banner");
             const certLink = document.getElementById("certificate-link");
 
-            let allFilled = true;
-            weights.forEach(input => { if (!input.value) allFilled = false; });
-
-            if (!allFilled || !vendorChoice || justification.split(/\s+/).length < 10) {
-                feedbackDisplay.innerHTML = `<span class="error-text">⚠️ Please ensure all criteria weights are filled, a vendor is selected, and a justification (at least 10 words) is provided[cite: 2].</span>`;
+            if (!vendorChoice || justification.split(/\s+/).length < 10) {
+                feedbackDisplay.innerHTML = `<span class="error-text">⚠️ Please select a vendor and provide a strategic justification of at least 10 words[cite: 2].</span>`;
                 banner.style.opacity = "0.5";
                 certLink.style.pointerEvents = "none";
                 statusText.style.color = "#a7f3d0";
@@ -146,20 +106,11 @@
 
         // Reveal Model Solution Handler
         document.getElementById('reveal-btn').addEventListener('click', function() {
-            // Pre-fill Priority Weights (1-5)
-            const weights = document.querySelectorAll('.weight-input');
-            weights.forEach(w => {
-                const crit = w.getAttribute('data-criterion');
-                if (crit === 'security') w.value = '5';
-                else if (crit === 'features') w.value = '4';
-                else w.value = '3';
-            });
-
             // Set Recommended Vendor to B (Aura Hospitality AI)
             document.getElementById('vendor-selection').value = 'B';
 
             // Set Model Justification
-            document.getElementById('justification-text').value = "Vendor B (Aura Hospitality AI) is the optimal choice because enterprise security and GDPR compliance are weighted as critical priorities (5/5) in hospitality. While Vendor A has superior UX and Vendor C is cheaper, neither offers zero data-retention guarantees or isolated tenant architecture, making Aura the safest and most robust strategic decision[cite: 2].";
+            document.getElementById('justification-text').value = "Vendor B (Aura Hospitality AI) is the optimal choice because enterprise security and GDPR compliance are critical priorities in hospitality[cite: 2]. While other options offer better UX or lower cost, Aura provides the necessary data-retention guarantees and secure architecture[cite: 2].";
 
             const feedbackDisplay = document.getElementById('evaluation-feedback');
             feedbackDisplay.innerHTML = `<span class="success-text">💡 Model solution revealed! Review the optimal vendor selection and expert justification above[cite: 2].</span>`;
